@@ -100,6 +100,7 @@ class TodolistFilterContent extends StatelessWidget {
                         itemBuilder: (_, index) => TodolistFilterItem(
                           model: todolistItems[index],
                           controller: _controller,
+                          index: index,
                         )
                       ),
                     )

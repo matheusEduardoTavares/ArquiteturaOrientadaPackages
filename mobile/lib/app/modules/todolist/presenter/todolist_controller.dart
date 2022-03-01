@@ -9,59 +9,53 @@ class TodolistController extends Cubit<TodolistState> {
   TodolistController({
     required GetTodolistsUsecase getTodolistsUsecase,
     required UpdateTodolistsUsecase updateTodolistsUsecase,
+    required RemoveTodolistsUsecase removeTodolistsUsecase,
   }) : 
   _getTodolistsUsecase = getTodolistsUsecase,
   _updateTodolistsUsecase = updateTodolistsUsecase,
+  _removeTodolistsUsecase = removeTodolistsUsecase,
   super(TodolistState.initial());
 
   final GetTodolistsUsecase _getTodolistsUsecase;
   final UpdateTodolistsUsecase _updateTodolistsUsecase;
+  final RemoveTodolistsUsecase _removeTodolistsUsecase;
 
   Future<void> getTodolists() async {
-    try {
-      emit(state.copyWith(isRequesting: true));
-      
-      await _getAndUpdateTodolist();
-    } 
-    catch (_) {
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-        asuka.showDialog(
-          builder: (_) => const ErrorDialog(
-            content: 'Ocorreu um erro ao tentar baixar os todos',
-          ),
-        );
-      });
-    }
-    finally {
-      emit(state.copyWith(isRequesting: false));
-    }
+    _treatMethods(
+      errorMessage: 'Ocorreu um erro ao tentar baixar os todos',
+      executeMethod: () async {
+        await _getAndUpdateTodolist();
+      }
+    );
   }
 
   Future<void> updateTodolistIsVisited({
     required TodolistModel updatedModel,
     required bool isVisited,
   }) async {
-    try {
-      emit(state.copyWith(isRequesting: true));
+    _treatMethods(
+      errorMessage: 'Ocorreu um erro ao atualizar o todo',
+      executeMethod: () async {
+        await _updateTodolistsUsecase.execute(updatedModel.copyWith(
+          isVisited: isVisited
+        ));
+        
+        await _getAndUpdateTodolist();
+      }
+    );
+  }
+
+  Future<void> removeTodolist({
+    required TodolistModel modelToRemove,
+  }) async {
+    _treatMethods(
+      errorMessage: 'Ocorreu um erro ao deletar o todo',
+      executeMethod: () async {
+        await _removeTodolistsUsecase.execute(modelToRemove);
       
-      await _updateTodolistsUsecase.execute(updatedModel.copyWith(
-        isVisited: isVisited
-      ));
-      
-      await _getAndUpdateTodolist();
-    } 
-    catch (_) {
-      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-        asuka.showDialog(
-          builder: (_) => const ErrorDialog(
-            content: 'Ocorreu um erro ao atualizar os todos',
-          ),
-        );
-      });
-    }
-    finally {
-      emit(state.copyWith(isRequesting: false));
-    }
+        await _getAndUpdateTodolist();
+      }
+    );
   }
 
   Future<void> _getAndUpdateTodolist() async {
@@ -70,5 +64,28 @@ class TodolistController extends Cubit<TodolistState> {
     emit(state.copyWith(
       items: getData,
     ));
+  }
+  
+  Future<void> _treatMethods({
+    required String errorMessage,
+    required Future<void> Function() executeMethod,
+  }) async {
+    try {
+      emit(state.copyWith(isRequesting: true));
+      
+      await executeMethod();
+    } 
+    catch (_) {
+      WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+        asuka.showDialog(
+          builder: (_) => ErrorDialog(
+            content: errorMessage,
+          ),
+        );
+      });
+    }
+    finally {
+      emit(state.copyWith(isRequesting: false));
+    }
   }
 }
