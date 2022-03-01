@@ -1,14 +1,19 @@
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/todolist_filter_item.dart';
 
 class TodolistFilterContent extends StatelessWidget {
   const TodolistFilterContent({ 
+    required TodolistController controller,
     required this.todolistItems,
     Key? key
-  }) : super(key: key);
+  }) : 
+  _controller = controller,
+  super(key: key);
 
   final List<TodolistModel> todolistItems;
+  final TodolistController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +99,7 @@ class TodolistFilterContent extends StatelessWidget {
                         itemCount: todolistItems.length,
                         itemBuilder: (_, index) => TodolistFilterItem(
                           model: todolistItems[index],
+                          controller: _controller,
                         )
                       ),
                     )

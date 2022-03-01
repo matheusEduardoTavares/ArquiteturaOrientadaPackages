@@ -6,3 +6,4 @@ export 'app/core/core_module_adapter.dart';
 export 'app/modules/todolist/domain/entities/todolist_model.dart';
 export 'app/modules/todolist/todolist_module_adapter.dart';
 export 'app/modules/todolist/presenter/usecases/get_todolists_usecase.dart';
+export 'app/modules/todolist/presenter/usecases/update_todolists_usecase.dart';

@@ -46,4 +46,24 @@ class TodolistModel {
   String toJson() => json.encode(toMap());
 
   factory TodolistModel.fromJson(String source) => TodolistModel.fromMap(json.decode(source));
+
+  TodolistModel copyWith({
+    String? id,
+    String? image,
+    String? title,
+    String? description,
+    bool? isVisited,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return TodolistModel(
+      id: id ?? this.id,
+      image: image ?? this.image,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isVisited: isVisited ?? this.isVisited,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
 }

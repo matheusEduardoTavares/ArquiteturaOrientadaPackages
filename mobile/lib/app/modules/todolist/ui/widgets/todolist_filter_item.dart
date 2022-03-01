@@ -1,14 +1,19 @@
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/todolist_image_item.dart';
 
 class TodolistFilterItem extends StatelessWidget {
   const TodolistFilterItem({ 
     required this.model,
+    required TodolistController controller,
     Key? key
-  }) : super(key: key);
+  }) : 
+  _controller = controller,
+  super(key: key);
 
   final TodolistModel model;
+  final TodolistController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,7 @@ class TodolistFilterItem extends StatelessWidget {
                 children: [
                   TodolistImageItem(
                     model: model,
+                    controller: _controller,
                   ),
                 ],
               ),

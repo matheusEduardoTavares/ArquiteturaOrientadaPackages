@@ -8,14 +8,17 @@ class TodolistModule extends Module {
   @override
   final List<Bind> binds = [
     ...TodoListModuleAdapter.binds(),
-    Bind.lazySingleton((i) => TodolistController(getTodolistsUsecase: i())),
+    Bind.lazySingleton((i) => TodolistController(
+      updateTodolistsUsecase: i(),
+      getTodolistsUsecase: i(),
+    )),
   ];
 
   @override
   final List<ModularRoute> routes = [
     ChildRoute(
       Modular.initialRoute, 
-      child: (_, args) => TodoListPage(todolistController: Modular.get(),)
+      child: (_, args) => TodoListPage(controller: Modular.get(),)
     )
   ];
 }
