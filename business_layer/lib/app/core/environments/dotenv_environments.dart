@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class DotenvEnvironments implements Environments {
   @override
   String? getValue(String key) {
-    return dotenv.env['VAR_NAME']?.toString();
+    return dotenv.env[key]?.toString();
   }
 
   @override

@@ -9,7 +9,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class TodoListModuleAdapter {
   TodoListModuleAdapter._();
 
-  List<Bind> binds() => [
+  static List<Bind> binds() => [
     Bind.lazySingleton<GetTodolistsDatasource>((i) => GetTodolistsDatasourceImpl(localStorage: i(), restClient: i()), export: true),
     Bind.lazySingleton<GetTodolistsRepository>((i) => GetTodolistsRepositoryImpl(getTodolistsDatasource: i()), export: true),
     Bind.lazySingleton<GetTodolistsUsecase>((i) => GetTodolistsUsecaseImpl(getTodolistsRepository: i()), export: true),

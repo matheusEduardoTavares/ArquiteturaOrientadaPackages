@@ -26,8 +26,8 @@ class TodolistModel {
       'title': title,
       'description': description,
       'isVisited': isVisited,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
     };
   }
 
@@ -38,8 +38,8 @@ class TodolistModel {
       title: map['title'] ?? '',
       description: map['description'] ?? '',
       isVisited: map['isVisited'] ?? false,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
     );
   }
 

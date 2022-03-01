@@ -18,18 +18,21 @@ class GetTodolistsDatasourceImpl implements GetTodolistsDatasource {
 
   @override
   Future<List<TodolistModel>> execute() async {
-    final restClientResponse = await _restClient.get<Response<List>>(
-      path: '/',
+    final restClientResponse = await _restClient.get<List>(
+      path: '/todo-list',
     );
 
-    final List? todoListItems = restClientResponse.data!.data;
+    final List<Map<String, dynamic>>? todoListItems = restClientResponse.data?.
+      map((e) => Map<String, dynamic>.from(e)).toList();
 
     if (todoListItems != null && todoListItems.isNotEmpty) {
-      await _localStorage.write<List>(todoListKey, todoListItems);
-
       final convertedData = todoListItems.map(
-        (e) => TodolistModel.fromJson(e),
+        (e) => TodolistModel.fromMap(e),
       ).toList();
+
+      final serializableData = convertedData.map((e) => e.toJson()).toList();
+
+      await _localStorage.write<List>(todoListKey, serializableData);
 
       return convertedData;
     }

@@ -17,6 +17,8 @@ class DioRestClient implements RestClient {
 
   BaseOptions get _defaultOptions => BaseOptions(
     baseUrl: _environments.getValue('base_url') ?? '',
+    connectTimeout: 60000,
+    sendTimeout: 60000,
   );
 
   @override

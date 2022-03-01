@@ -9,7 +9,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 class CoreModuleAdapter {
   CoreModuleAdapter._();
 
-  List<Bind> binds({
+  static List<Bind> binds({
     Environments? environments,
     RestClient? restClient,
     LocalStorage? localStorage,
