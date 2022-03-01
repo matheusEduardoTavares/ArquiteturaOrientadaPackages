@@ -17,7 +17,7 @@ class AppWidget extends StatelessWidget {
           primary: Color.fromRGBO(128, 101, 235, 1),
           onPrimary: Colors.white,
           secondary: Colors.purple,
-          onSecondary: Colors.grey,
+          onSecondary: Colors.white,
           background: Colors.transparent,
           onBackground: Colors.transparent,
           brightness: Brightness.light,
@@ -26,6 +26,17 @@ class AppWidget extends StatelessWidget {
           surface: Colors.purpleAccent,
           onSurface: Colors.grey,
         ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.0),
+            borderSide: BorderSide.none
+          ),
+          filled: true,
+          fillColor: Colors.grey.withOpacity(0.1),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Color.fromRGBO(128, 101, 235, 1),
+        )
       ),
     );
   }

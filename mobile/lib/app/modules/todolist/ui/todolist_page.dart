@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:mobile/app/core/utilities/routes_name.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_state.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/todolist_filter_content.dart';
@@ -24,6 +26,12 @@ class TodoListPage extends StatelessWidget {
         ) : TodolistFilterContent(
           todolistItems: state.items,
           controller: _controller,
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Modular.to.pushNamed(RoutesName.createTodolistItemRoute);
+          },
         ),
       ),
     );

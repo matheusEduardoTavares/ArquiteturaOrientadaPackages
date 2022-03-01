@@ -51,7 +51,7 @@ class TodolistImageItem extends StatelessWidget {
 
     if (model.isVisited) {
       return Banner(
-        location: BannerLocation.topEnd,
+        location: BannerLocation.bottomEnd,
         message: 'Already Visited',
         child: content,
       );

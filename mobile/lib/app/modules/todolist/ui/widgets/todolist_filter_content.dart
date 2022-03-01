@@ -30,22 +30,16 @@ class TodolistFilterContent extends StatelessWidget {
           builder: (_, constraints) {
             return SingleChildScrollView(
               child: SizedBox(
-                height: constraints.maxHeight,
+                height: constraints.maxHeight - 30,
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Expanded(
                           child: TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                                borderSide: BorderSide.none
-                              ),
-                              prefixIcon: const Icon(Icons.search),
-                              hintText: 'Search',
-                              filled: true,
-                              fillColor: Colors.grey.withOpacity(0.1),
+                            decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.search),
+                              labelText: 'Search by title',
                             ),
                           ),
                         ),
@@ -95,15 +89,22 @@ class TodolistFilterContent extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: todolistItems.length,
-                        itemBuilder: (_, index) => TodolistFilterItem(
-                          model: todolistItems[index],
-                          controller: _controller,
-                          index: index,
-                        )
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                        child: ListView.separated(
+                          separatorBuilder: (_, index) => const SizedBox(
+                            height: 10,
+                            child: Divider(),
+                          ),
+                          itemCount: todolistItems.length,
+                          itemBuilder: (_, index) => TodolistFilterItem(
+                            model: todolistItems[index],
+                            controller: _controller,
+                            index: index,
+                          )
+                        ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

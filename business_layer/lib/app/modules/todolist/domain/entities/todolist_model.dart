@@ -2,22 +2,22 @@ import 'dart:convert';
 
 class TodolistModel {
   TodolistModel({
-    required this.id,
+    this.id,
     required this.image,
     required this.title,
     required this.description,
     required this.isVisited,
-    required this.createdAt,
-    required this.updatedAt,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  final String id;
+  final String? id;
   final String image;
   final String title;
   final String description;
   final bool isVisited;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,8 +26,8 @@ class TodolistModel {
       'title': title,
       'description': description,
       'isVisited': isVisited,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
     };
   }
 
