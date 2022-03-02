@@ -1,9 +1,9 @@
 import 'package:business_layer/app/modules/todolist/todolist_module_adapter.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:mobile/app/core/utilities/routes_name.dart';
-import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
-import 'package:mobile/app/modules/todolist/ui/create/todolist_create_page.dart';
-import 'package:mobile/app/modules/todolist/ui/todolist_page.dart';
+import 'package:web/app/core/utilities/routes_name.dart';
+import 'package:web/app/modules/todolist/presenter/todolist_controller.dart';
+import 'package:web/app/modules/todolist/ui/create/todolist_create_page.dart';
+import 'package:web/app/modules/todolist/ui/todolist_page.dart';
 
 class TodolistModule extends Module {
 

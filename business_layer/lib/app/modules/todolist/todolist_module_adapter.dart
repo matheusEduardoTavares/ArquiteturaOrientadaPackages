@@ -22,8 +22,8 @@ import 'package:business_layer/app/modules/todolist/infra/repositories/update_to
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class TodoListModuleAdapter {
-  TodoListModuleAdapter._();
+class TodolistModuleAdapter {
+  TodolistModuleAdapter._();
 
   static List<Bind> binds() => [
     //FILTER
