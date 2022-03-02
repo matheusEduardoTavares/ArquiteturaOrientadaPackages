@@ -24,7 +24,7 @@ class TodoListPage extends StatelessWidget {
         body: state.isRequesting ? const Center(
           child: CircularProgressIndicator(),
         ) : TodolistFilterContent(
-          todolistItems: state.items,
+          todolistItems: state.itemsToShow,
           controller: _controller,
         ),
         floatingActionButton: FloatingActionButton(

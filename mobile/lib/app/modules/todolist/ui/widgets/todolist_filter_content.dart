@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/todolist_filter_item.dart';
 
-class TodolistFilterContent extends StatelessWidget {
+class TodolistFilterContent extends StatefulWidget {
   const TodolistFilterContent({ 
     required TodolistController controller,
     required this.todolistItems,
@@ -16,13 +16,19 @@ class TodolistFilterContent extends StatelessWidget {
   final TodolistController _controller;
 
   @override
-  Widget build(BuildContext context) {
-    if (todolistItems.isEmpty) {
-      return const Center(
-        child: Text('Nenhum item para ser exibido'),
-      );
-    }
+  State<TodolistFilterContent> createState() => _TodolistFilterContentState();
+}
 
+class _TodolistFilterContentState extends State<TodolistFilterContent> {
+  @override
+  void initState() {
+    super.initState();
+
+    widget._controller.initializeTimerAndTextEditingController();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
@@ -37,6 +43,7 @@ class TodolistFilterContent extends StatelessWidget {
                       children: [
                         Expanded(
                           child: TextFormField(
+                            controller: widget._controller.filterEC,
                             decoration: const InputDecoration(
                               prefixIcon: Icon(Icons.search),
                               labelText: 'Search by title',
@@ -47,8 +54,12 @@ class TodolistFilterContent extends StatelessWidget {
                           width: 20,
                         ),
                         ElevatedButton(
-                          onPressed: () {}, 
-                          child: const Icon(Icons.menu),
+                          onPressed: () {
+                            if (widget._controller.filterEC != null) {
+                              widget._controller.clearFilterTodolistItems(widget._controller.filterEC!);
+                            }
+                          }, 
+                          child: const Icon(Icons.clear),
                           style: ButtonStyle(
                             minimumSize: MaterialStateProperty.all(const Size(50, 50)),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -88,23 +99,24 @@ class TodolistFilterContent extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                        child: ListView.separated(
-                          separatorBuilder: (_, index) => const SizedBox(
-                            height: 10,
-                            child: Divider(),
+                    if (widget.todolistItems.isNotEmpty) 
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                          child: ListView.separated(
+                            separatorBuilder: (_, index) => const SizedBox(
+                              height: 10,
+                              child: Divider(),
+                            ),
+                            itemCount: widget.todolistItems.length,
+                            itemBuilder: (_, index) => TodolistFilterItem(
+                              model: widget.todolistItems[index],
+                              controller: widget._controller,
+                              index: index,
+                            )
                           ),
-                          itemCount: todolistItems.length,
-                          itemBuilder: (_, index) => TodolistFilterItem(
-                            model: todolistItems[index],
-                            controller: _controller,
-                            index: index,
-                          )
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -113,5 +125,12 @@ class TodolistFilterContent extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    widget._controller.disposeTimerAndTextEditingController();
+
+    super.dispose();
   }
 }

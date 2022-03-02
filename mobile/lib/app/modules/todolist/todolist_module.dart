@@ -11,6 +11,7 @@ class TodolistModule extends Module {
   final List<Bind> binds = [
     ...TodoListModuleAdapter.binds(),
     Bind.lazySingleton((i) => TodolistController(
+      filterTodolistsByTitleUsecase: i(),
       createTodolistsUsecase: i(),
       removeTodolistsUsecase: i(),
       updateTodolistsUsecase: i(),

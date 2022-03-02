@@ -23,13 +23,17 @@ class TodolistFilterItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey('$hashCode-$index'), 
-      confirmDismiss: (dismissDirection) => 
-        WidgetsUtilities.confirmDismiss(
+      confirmDismiss: (dismissDirection) async {
+        final confirmDismiss = await WidgetsUtilities.confirmDismiss(
           direction: dismissDirection, 
           todoTitle: model.title,
-        ),
-      onDismissed: (_) {
-        _controller.removeTodolist(modelToRemove: model);
+        );
+
+        if (confirmDismiss != null && confirmDismiss) {
+          _controller.removeTodolist(modelToRemove: model);
+        }
+
+        return confirmDismiss;
       },
       background: const DefaultContainerTodolistItem(
         color: Colors.black12,

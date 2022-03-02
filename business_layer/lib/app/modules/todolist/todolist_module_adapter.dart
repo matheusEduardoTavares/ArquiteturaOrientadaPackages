@@ -7,6 +7,7 @@ import 'package:business_layer/app/modules/todolist/domain/repositories/get_todo
 import 'package:business_layer/app/modules/todolist/domain/repositories/remove_todolists_repository.dart';
 import 'package:business_layer/app/modules/todolist/domain/repositories/update_todolists_repository.dart';
 import 'package:business_layer/app/modules/todolist/domain/usecases/create_todolists_usecase_impl.dart';
+import 'package:business_layer/app/modules/todolist/domain/usecases/filter_todolists_by_title_usecase_impl.dart';
 import 'package:business_layer/app/modules/todolist/domain/usecases/get_todolists_usecase_impl.dart';
 import 'package:business_layer/app/modules/todolist/domain/usecases/remove_todolists_usecase_impl.dart';
 import 'package:business_layer/app/modules/todolist/domain/usecases/update_todolists_usecase_impl.dart';
@@ -25,6 +26,9 @@ class TodoListModuleAdapter {
   TodoListModuleAdapter._();
 
   static List<Bind> binds() => [
+    //FILTER
+    Bind.lazySingleton<FilterTodolistsByTitleUsecase>((i) => FilterTodolistsByTitleUsecaseImpl()),
+
     //CREATE
     Bind.lazySingleton<CreateTodolistsDatasource>((i) => CreateTodolistsDatasourceImpl(restClient: i())),
     Bind.lazySingleton<CreateTodolistsUsecase>((i) => CreateTodolistsUsecaseImpl(createTodolistsRepository: i())),

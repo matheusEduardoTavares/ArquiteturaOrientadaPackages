@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/widgets.dart';
@@ -12,17 +14,69 @@ class TodolistController extends Cubit<TodolistState> {
     required UpdateTodolistsUsecase updateTodolistsUsecase,
     required RemoveTodolistsUsecase removeTodolistsUsecase,
     required CreateTodolistsUsecase createTodolistsUsecase,
+    required FilterTodolistsByTitleUsecase filterTodolistsByTitleUsecase,
   }) : 
   _getTodolistsUsecase = getTodolistsUsecase,
   _updateTodolistsUsecase = updateTodolistsUsecase,
   _removeTodolistsUsecase = removeTodolistsUsecase,
   _createTodolistsUsecase = createTodolistsUsecase,
+  _filterTodolistsByTitleUsecase = filterTodolistsByTitleUsecase,
   super(TodolistState.initial());
 
   final GetTodolistsUsecase _getTodolistsUsecase;
   final UpdateTodolistsUsecase _updateTodolistsUsecase;
   final RemoveTodolistsUsecase _removeTodolistsUsecase;
   final CreateTodolistsUsecase _createTodolistsUsecase;
+  final FilterTodolistsByTitleUsecase _filterTodolistsByTitleUsecase;
+
+  Timer? _timer;
+  TextEditingController? _filterEC;
+
+  TextEditingController? get filterEC => _filterEC;
+
+  void initializeTimerAndTextEditingController() {
+    _filterEC = TextEditingController();
+    _filterEC!.addListener(() {
+      if (_timer?.isActive ?? false) {
+        _timer!.cancel();
+      }
+
+      _timer = Timer(
+        const Duration(milliseconds: 500),
+        () {
+          filterTodolistItems(_filterEC!.text);
+        }
+      );
+    });
+  }
+
+  void disposeTimerAndTextEditingController() {
+    _filterEC?.removeListener(() {});
+    _filterEC?.dispose();
+    _filterEC = null;
+    _timer?.cancel();
+    _timer = null;
+  }
+
+  void _cancelTimerAndClearTextEditingController() {
+    _timer?.cancel();
+    _filterEC?.clear();
+  }
+
+  void filterTodolistItems(String text) {
+    final filtered = _filterTodolistsByTitleUsecase.execute(
+      allItems: state.allItems, 
+      titleToFilter: text,
+    );
+
+    emit(state.copyWith(
+      itemsToShow: filtered,
+    ));
+  }
+
+  Future<void> clearFilterTodolistItems(TextEditingController textEditingController) async {
+    await getTodolists();
+  }
 
   Future<void> getTodolists() async {
     _treatMethods(
@@ -76,10 +130,12 @@ class TodolistController extends Cubit<TodolistState> {
   }
 
   Future<void> _getAndUpdateTodolist() async {
+    _cancelTimerAndClearTextEditingController();
     final getData = await _getTodolistsUsecase.execute();
 
     emit(state.copyWith(
-      items: getData,
+      itemsToShow: getData,
+      allItems: [ ...getData ],
     ));
   }
   
