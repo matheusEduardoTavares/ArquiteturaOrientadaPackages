@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:asuka/asuka.dart' as asuka;
+import 'package:mobile/app/core/utilities/constants.dart';
+import 'package:mobile/app/core/utilities/default_colors.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({ Key? key }) : super(key: key);
@@ -14,7 +16,7 @@ class AppWidget extends StatelessWidget {
       builder: asuka.builder,
       theme: ThemeData(
         colorScheme: const ColorScheme(
-          primary: Color.fromRGBO(128, 101, 235, 1),
+          primary: DefaultColors.purple,
           onPrimary: Colors.white,
           secondary: Colors.purple,
           onSecondary: Colors.white,
@@ -28,14 +30,14 @@ class AppWidget extends StatelessWidget {
         ),
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(Constants.defaultBorderRadius),
             borderSide: BorderSide.none
           ),
           filled: true,
-          fillColor: Colors.grey.withOpacity(0.1),
+          fillColor: DefaultColors.lightGrey,
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: Color.fromRGBO(128, 101, 235, 1),
+          backgroundColor: DefaultColors.purple,
         )
       ),
     );

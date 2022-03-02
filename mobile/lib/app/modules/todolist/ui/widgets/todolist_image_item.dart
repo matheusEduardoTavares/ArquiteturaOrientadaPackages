@@ -1,5 +1,6 @@
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 
 class TodolistImageItem extends StatelessWidget {
@@ -18,10 +19,12 @@ class TodolistImageItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final content = Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(
+          Constants.defaultBorderRadius
+        ),
       ),
-      height: 170,
-      width: 120,
+      height: Constants.defaultTodolistItemHeight,
+      width: Constants.defaultTodolistItemWidth,
       child: InkWell(
         onTap: () {
           final newStatus = !model.isVisited;
@@ -31,7 +34,9 @@ class TodolistImageItem extends StatelessWidget {
           );
         },
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius: BorderRadius.circular(
+            Constants.defaultBorderRadius
+          ),
           child: Image.network(
             model.image,
             fit: BoxFit.cover,

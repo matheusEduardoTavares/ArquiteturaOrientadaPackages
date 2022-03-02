@@ -5,6 +5,7 @@ import 'package:business_layer/business_layer.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobile/app/core/dialogs/error_dialog.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_state.dart';
 import 'package:asuka/asuka.dart' as asuka;
 
@@ -42,7 +43,7 @@ class TodolistController extends Cubit<TodolistState> {
       }
 
       _timer = Timer(
-        const Duration(milliseconds: 500),
+        const Duration(milliseconds: Constants.debounceDurationInMilliseconds),
         () {
           filterTodolistItems(_filterEC!.text);
         }

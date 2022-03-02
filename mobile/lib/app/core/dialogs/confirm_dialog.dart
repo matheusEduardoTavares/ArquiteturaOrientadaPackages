@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/app/core/utilities/strings.dart';
 
 class ConfirmDialog extends StatelessWidget {
   const ConfirmDialog({ 
@@ -11,20 +12,20 @@ class ConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Confirmação'),
-      content: Text('Deseja deletar o todo de $title ?'),
+      title: const Text(Strings.confirmation),
+      content: Text('${Strings.cofirmExclude} "$title" ?'),
       actions: [
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop(false);
           }, 
-          child: const Text('CANCELAR'),
+          child: const Text(Strings.cancel),
         ),
         ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop(true);
           }, 
-          child: const Text('CONFIRMAR'),
+          child: const Text(Strings.confirm),
         ),
       ],
     );

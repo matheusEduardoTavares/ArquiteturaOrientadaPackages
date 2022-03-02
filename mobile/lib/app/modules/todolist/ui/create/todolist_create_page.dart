@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile/app/core/custom_validations/custom_validations.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
+import 'package:mobile/app/core/utilities/strings.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_state.dart';
 import 'package:validatorless/validatorless.dart';
@@ -30,7 +32,7 @@ class _TodolistCreatePageState extends State<TodolistCreatePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Create Todolist Item'),
+          title: const Text(Strings.createItem),
         ),
         body: BlocBuilder<TodolistController, TodolistState>(
           bloc: widget._controller,
@@ -43,14 +45,14 @@ class _TodolistCreatePageState extends State<TodolistCreatePage> {
 
             return Center(
               child: Padding(
-                padding: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(Constants.defaultPagePadding),
                 child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: Constants.defaultSpacePadding),
                           child: TextFormField(
                             decoration: const InputDecoration(
                               labelText: 'Location title'
@@ -61,7 +63,7 @@ class _TodolistCreatePageState extends State<TodolistCreatePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: Constants.defaultSpacePadding),
                           child: TextFormField(
                             decoration: const InputDecoration(
                               labelText: 'Location description'
@@ -72,7 +74,7 @@ class _TodolistCreatePageState extends State<TodolistCreatePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: Constants.defaultSpacePadding),
                           child: TextFormField(
                             decoration: const InputDecoration(
                               labelText: 'Location image URL'
@@ -94,7 +96,7 @@ class _TodolistCreatePageState extends State<TodolistCreatePage> {
                               description: _descriptionEC.text,
                             );
                           }, 
-                          child: const Text('Create')
+                          child: const Text(Strings.create)
                         ),
                       ],
                     ),

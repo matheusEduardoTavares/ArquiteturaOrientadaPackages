@@ -1,5 +1,7 @@
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
+import 'package:mobile/app/core/utilities/strings.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/todolist_filter_item.dart';
 
@@ -31,12 +33,17 @@ class _TodolistFilterContentState extends State<TodolistFilterContent> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
+        padding: const EdgeInsets.fromLTRB(
+          Constants.defaultPagePadding, 
+          Constants.defaultPagePadding, 
+          Constants.defaultPagePadding, 
+          Constants.noBottomSpace,
+        ),
         child: LayoutBuilder(
           builder: (_, constraints) {
             return SingleChildScrollView(
               child: SizedBox(
-                height: constraints.maxHeight - 30,
+                height: constraints.maxHeight - Constants.defaultBorderRadius,
                 child: Column(
                   children: [
                     Row(
@@ -51,7 +58,7 @@ class _TodolistFilterContentState extends State<TodolistFilterContent> {
                           ),
                         ),
                         const SizedBox(
-                          width: 20,
+                          width: Constants.defaultSymmetricPadding,
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -61,20 +68,25 @@ class _TodolistFilterContentState extends State<TodolistFilterContent> {
                           }, 
                           child: const Icon(Icons.clear),
                           style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(const Size(50, 50)),
+                            minimumSize: MaterialStateProperty.all(const Size(
+                              Constants.elevatedButtonSize, 
+                              Constants.elevatedButtonSize
+                            )),
                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(
+                                  Constants.defaultBorderRadiusElevatedButton
+                                ),
                               ),
                             )
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: Constants.defaultSpacePadding,),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: 20,
+                        vertical: Constants.defaultSymmetricPadding,
                       ),
                       child: Align(
                         alignment: Alignment.centerLeft,
@@ -83,12 +95,12 @@ class _TodolistFilterContentState extends State<TodolistFilterContent> {
                             style: TextStyle(
                               fontWeight: FontWeight.bold, 
                               color: Colors.black, 
-                              fontSize: 28,
+                              fontSize: Constants.defaultWeightFontSize,
                             ),
-                            text: 'Places',
+                            text: Strings.places,
                             children: [
                               TextSpan(
-                                text: ' to visit',
+                                text: Strings.toVisit,
                                 style: TextStyle(
                                   fontWeight: FontWeight.normal, 
                                   color: Colors.black
@@ -102,10 +114,12 @@ class _TodolistFilterContentState extends State<TodolistFilterContent> {
                     if (widget.todolistItems.isNotEmpty) 
                       Expanded(
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                          borderRadius: const BorderRadius.all(Radius.circular(
+                            Constants.defaultPagePadding
+                          )),
                           child: ListView.separated(
                             separatorBuilder: (_, index) => const SizedBox(
-                              height: 10,
+                              height: Constants.defaultSeparatorBuilderHeight,
                               child: Divider(),
                             ),
                             itemCount: widget.todolistItems.length,

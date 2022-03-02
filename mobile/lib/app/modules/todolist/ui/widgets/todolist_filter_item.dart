@@ -1,5 +1,7 @@
 import 'package:business_layer/business_layer.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
+import 'package:mobile/app/core/utilities/default_colors.dart';
 import 'package:mobile/app/core/utilities/widgets_utilities.dart';
 import 'package:mobile/app/modules/todolist/presenter/todolist_controller.dart';
 import 'package:mobile/app/modules/todolist/ui/widgets/default_container_todolist_item.dart';
@@ -39,7 +41,7 @@ class TodolistFilterItem extends StatelessWidget {
         color: Colors.black12,
       ),
       child: DefaultContainerTodolistItem(
-        color: Colors.grey.withOpacity(0.1),
+        color: DefaultColors.lightGrey,
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Row(
@@ -58,11 +60,16 @@ class TodolistFilterItem extends StatelessWidget {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+                        padding: const EdgeInsets.fromLTRB(
+                          Constants.defaultSymmetricPadding, 
+                          Constants.defaultSymmetricPadding, 
+                          Constants.defaultSymmetricPadding, 
+                          Constants.defaultSpacePadding
+                        ),
                         child: Text(
                           model.title,
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: Constants.defaultFontSize,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -70,14 +77,14 @@ class TodolistFilterItem extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                        horizontal: Constants.defaultSymmetricPadding,
                       ),
                       child: SizedBox(
-                        width: constraints.maxWidth - 160,
+                        width: constraints.maxWidth - Constants.defaultTodolistItemWidthEmptyArea,
                         child: Text(
                           model.description,
                           style: const TextStyle(
-                            fontSize: 16,
+                            fontSize: Constants.defaultNormalFontSize,
                             fontWeight: FontWeight.normal,
                           ),
                           maxLines: 4,

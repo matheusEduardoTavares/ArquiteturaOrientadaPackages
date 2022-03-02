@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/app/core/utilities/constants.dart';
 
 class DefaultContainerTodolistItem extends StatelessWidget {
   const DefaultContainerTodolistItem({ 
@@ -13,10 +14,12 @@ class DefaultContainerTodolistItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 170,
+      height: Constants.defaultTodolistItemHeight,
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(20)
+        borderRadius: BorderRadius.circular(
+          Constants.defaultBorderRadius
+        )
       ),
       child: child,
     );
